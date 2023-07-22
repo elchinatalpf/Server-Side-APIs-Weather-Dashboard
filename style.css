@@ -1,8 +1,26 @@
 * {
-  border-style: border-box;
-  color:aliceblue;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: black;
+  background-color: rgb(184, 176, 176);
+}
+
+header {
+  padding: 40;
+  text-align: center;
+  color:aliceblue;
+  background-color: rgb(20, 153, 153);
+}
+
+.sideLeft {
+  height: 100vh;
+  
+}
+
+.maincontent {
+  width:500;
+  height: 500;
+  background-color: rgb(151, 168, 105);
 }
