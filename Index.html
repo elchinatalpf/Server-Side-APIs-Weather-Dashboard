@@ -1,34 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width-device-width, initial-scale=1.0" />
-        <title>Server Side APIs Weather Dashboard</title>
-        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
-        <link rel="stylesheet" href="./style.css" />
-        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-        
-    </head>
 
-    <body>
-        <header>
-            <h1>Weather Dashboard</h1>
-        </header>
-        <div class="container">
-            <div class="side">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width-device-width, initial-scale=1.0" />
+    <title>Server Side APIs Weather Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
+</head>
+
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <main class="row">
+        <div class="container0">
+            <div class="sideLeft col s3">
+                <aside>
+                    <form>
+                        <input class="input-field" id="city-search">
+                        <button class="ui-button ui-widget ui-corner-all">Search for Weather</button>
+                    </form>
+                </aside>
             </div>
 
+            <div class="maincontent col s6">
+                <div>
+                    <ul>
+                        <li>1.</li>
+                        <li>1.</li>
+                        <li>1.</li>
+                        <li>1.</li>
+                        <li>1.</li>
+                        <li>1.</li>
+                        <li>1.</li>
+                    </ul>
+
+                    <div class="column col s3 push-s9">
+                        <div id="weatherIcons">
+                            <img src="http://via.placeholder.com/200x200" alt="placeholder">
+                        </div>
+                    </div>.
+                </div>
+
+                
+            </div>
         </div>
+    </main>
 
-        <div class="maincontent">
-
-
-        </div>
-
-        <script src="./script.js"></script>
-    </body>
+    <script src="./script.js"></script>
+</body>
 
 </html>
