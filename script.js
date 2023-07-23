@@ -9,3 +9,6 @@ var apiOpenWeatherKey = 'f74896a5d35555f0459e455e5e04f3e2';
 // 5. Render last search from Local Storate
 // 6. Fetch URL probably with jQuery (ajax)
 // 7. 
+
+
+// Will use forcast class to introduce 5 days cards created with jQuery (maybe)
