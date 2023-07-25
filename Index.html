@@ -22,9 +22,9 @@
             <section class="col-12 col-md-3 col-xl-3 colOne">
                 <div class=" col-12 col-md-9 col-xl-9 colTwo sideLeft">
                     <aside>
-                        <form>
-                            <input class="input-field" id="city-search">
-                            <button class="btn btn-primary" type="submit">Search City</button>
+                        <form class="searchCity">
+                            <input class="input-field" type="text" id="city-search">
+                            <button class="btn btn-primary" type="submit" id="search-button">Search City</button>
                         </form>
                     </aside>
                 </div>
@@ -32,7 +32,7 @@
     
             <section class="col">
                 <div class="showCity">
-                    <ul>
+                    <ul id="currentCity">
                     </ul>
                 </div>
             </section>
