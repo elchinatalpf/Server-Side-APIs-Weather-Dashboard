@@ -1,16 +1,14 @@
-// 41fa68e7995dacccf780b9109022414d
-var email = "f74896a5d35555f0459e455e5e04f3e2";
 var currentTime = dayjs();
 var apiKey = "f74896a5d35555f0459e455e5e04f3e2";
 var city = "";
 var cityHistory = [];
 
 var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${apiKey}`;
-var testUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-var anotherTEST = `https://api.openweathermap.org/data/2.5/weather?lat=57&lon=-2.15&appid=${apiKey}&units=imperial`;
 
 function addcityHistory(city) {
   cityHistory.push(city);
+
+  localStorage.setItem("cityHistory", JSON.stringify(cityHistory));
   oldCities();
 }
 
@@ -21,13 +19,21 @@ function oldCities() {
   });
 }
 
+function keepHistory () {
+  var manyCities = localStorage.getItem("cityHistory");
+  if (manyCities) {
+    cityHistory = JSON.parse(manyCities);
+  }
+}
+
 function searchCity() {
   $("#search-button").on("click", function (event) {
     event.preventDefault();
 
     city = $(this).siblings("#city-search").val();
     var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-    localStorage.setItem("city", city);
+
+    // localStorage.setItem("city", city);
     $("#city-search").val("");
 
     addcityHistory(city);
@@ -36,6 +42,7 @@ function searchCity() {
       url: urlCurrentWeather,
       method: "GET",
     }).then(function (response) {
+
       updateCity(response, city);
       // We take the lat and lon from the response to call the forecast after the urlCurrentWeather.
       var lat = response.coord.lat;
@@ -46,6 +53,8 @@ function searchCity() {
         method: "GET",
       }).then(function (forecastResponse) {
         console.log(forecastResponse);
+
+        fiveDayForecast(forecastResponse);
       });
     });
   });
@@ -55,13 +64,14 @@ $("#clear").on("click", function (event) {
   event.preventDefault();
   cityHistory = [];
   $("#listofCities").empty();
+  localStorage.removeItem("cityHistory");
 });
 
 function updateCity(response, city) {
   var temp = response.main.temp;
   var wind = response.wind.speed;
   var humidity = response.main.humidity;
-  var currentTime = dayjs().format('MMMM D, YYYY h:mm A');
+  var currentTime = dayjs().format('MMMM D, YYYY');
 
   $("#currentCity").html(`<li>City: ${city} ${currentTime}</li>
   <li>Temperature: ${temp}°F</li>
@@ -69,18 +79,30 @@ function updateCity(response, city) {
     <li>Humidity: ${humidity}%</li>
   `);
 }
+ // I've not been able to make it work yet.
+function fiveDayForecast () {
+  $("#5forecast").empty();
 
-function realTime() {
-  function updateTime() {
-    // var currentTime = dayjs();
-    // $("#currentCity").text(currentTime.format("dddd, MMMM D, YYYY hh:mm:ss a"));
+  for (var i = 0; i < 5; i++) {
+    var forecastDay = forecastResponse.list[i];
+    var date = dayjs(forecastDay.dt_txt).format('MMMM D, YYYY');
+    var temp1 = forecastDay.main.temp;
+    var wind2 = forecastDay.wind.speed;
+    var humidity2 = forecastDay.main.humidity;
+
+    var forecastHTML = `<li>Date: ${date}</li>
+    <li>Temperature: ${temp1}°F</li>
+    <li>Wind Speed: ${wind2} MPH</li>
+    <li>Humidity: ${humidity2}%</li>
+  `;
+  $("#5forecast").append(forecastHTML);
   }
-  updateTime();
-  setInterval(updateTime, 1000);
 }
 
+
+
 $(document).ready(function () {
-  realTime();
+  keepHistory();
   searchCity();
   oldCities();
 });
