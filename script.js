@@ -1,9 +1,9 @@
 // 41fa68e7995dacccf780b9109022414d
 var email = "f74896a5d35555f0459e455e5e04f3e2";
 var currentTime = dayjs();
-var apiKey = "f74896a5d35555f0459e455e5e04f3e2"; 
+var apiKey = "f74896a5d35555f0459e455e5e04f3e2";
 var city = "";
-var cityHistory= [];
+var cityHistory = [];
 
 var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${apiKey}`;
 var testUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
@@ -21,11 +21,6 @@ function oldCities() {
   });
 }
 
-function addcityHistory(city) {
-  cityHistory.push(city);
-  oldCities();
-}
-
 function searchCity() {
   $("#search-button").on("click", function (event) {
     event.preventDefault();
@@ -34,16 +29,15 @@ function searchCity() {
     var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     localStorage.setItem("city", city);
     $("#city-search").val("");
-    
+
     addcityHistory(city);
-    
+
     $.ajax({
       url: urlCurrentWeather,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
-      console.log(city);
-// We take the lat and lon from the response to call the forecast after the urlCurrentWeather.
+      updateCity(response, city);
+      // We take the lat and lon from the response to call the forecast after the urlCurrentWeather.
       var lat = response.coord.lat;
       var lon = response.coord.lon;
       var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -52,17 +46,34 @@ function searchCity() {
         method: "GET",
       }).then(function (forecastResponse) {
         console.log(forecastResponse);
+      });
     });
-  });
   });
 }
 
+$("#clear").on("click", function (event) {
+  event.preventDefault();
+  cityHistory = [];
+  $("#listofCities").empty();
+});
 
+function updateCity(response, city) {
+  var temp = response.main.temp;
+  var wind = response.wind.speed;
+  var humidity = response.main.humidity;
+  var currentTime = dayjs().format('MMMM D, YYYY h:mm A');
+
+  $("#currentCity").html(`<li>City: ${city} ${currentTime}</li>
+  <li>Temperature: ${temp}°F</li>
+  <li>Wind Speed: ${wind} MPH</li>
+    <li>Humidity: ${humidity}%</li>
+  `);
+}
 
 function realTime() {
   function updateTime() {
-    var currentTime = dayjs();
-    $("#currentCity").text(currentTime.format("dddd, MMMM D, YYYY hh:mm:ss a"));
+    // var currentTime = dayjs();
+    // $("#currentCity").text(currentTime.format("dddd, MMMM D, YYYY hh:mm:ss a"));
   }
   updateTime();
   setInterval(updateTime, 1000);
