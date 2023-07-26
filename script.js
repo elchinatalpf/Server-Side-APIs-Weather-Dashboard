@@ -21,6 +21,11 @@ function oldCities() {
   });
 }
 
+function addcityHistory(city) {
+  cityHistory.push(city);
+  oldCities();
+}
+
 function searchCity() {
   $("#search-button").on("click", function (event) {
     event.preventDefault();
@@ -29,18 +34,30 @@ function searchCity() {
     var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     localStorage.setItem("city", city);
     $("#city-search").val("");
-
+    
     addcityHistory(city);
-
+    
     $.ajax({
       url: urlCurrentWeather,
       method: "GET",
     }).then(function (response) {
       console.log(response);
       console.log(city);
+// We take the lat and lon from the response to call the forecast after the urlCurrentWeather.
+      var lat = response.coord.lat;
+      var lon = response.coord.lon;
+      var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+      $.ajax({
+        url: urlForecast,
+        method: "GET",
+      }).then(function (forecastResponse) {
+        console.log(forecastResponse);
     });
   });
+  });
 }
+
+
 
 function realTime() {
   function updateTime() {
