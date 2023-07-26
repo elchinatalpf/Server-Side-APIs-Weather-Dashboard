@@ -1,7 +1,7 @@
 // 41fa68e7995dacccf780b9109022414d
-// email api key: f74896a5d35555f0459e455e5e04f3e2
+var email = "f74896a5d35555f0459e455e5e04f3e2";
 var currentTime = dayjs();
-var apiKey = 'f74896a5d35555f0459e455e5e04f3e2';
+var apiKey = "f74896a5d35555f0459e455e5e04f3e2"; 
 var city = "";
 var cityHistory= [];
 
@@ -9,71 +9,50 @@ var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lo
 var testUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 var anotherTEST = `https://api.openweathermap.org/data/2.5/weather?lat=57&lon=-2.15&appid=${apiKey}&units=imperial`;
 
+function addcityHistory(city) {
+  cityHistory.push(city);
+  oldCities();
+}
 
-$(document).ready(function () {
+function oldCities() {
+  $("#listofCities").text("");
+  cityHistory.forEach((city) => {
+    $("#listofCities").prepend("<tr><td>" + city + "</td></tr>");
+  });
+}
 
-  function searchCity () {  
+function searchCity() {
   $("#search-button").on("click", function (event) {
     event.preventDefault();
 
-      city = $(this).siblings("#city-search");
-      var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-      localStorage.setItem("city", city.val());
+    city = $(this).siblings("#city-search").val();
+    var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    localStorage.setItem("city", city);
+    $("#city-search").val("");
+
+    addcityHistory(city);
 
     $.ajax({
-      url: anotherTEST,
-      method: 'GET',
+      url: urlCurrentWeather,
+      method: "GET",
     }).then(function (response) {
       console.log(response);
       console.log(city);
     });
   });
-
-  function addcityHistory (city) {
-    cityHistory.push(city);
-    oldCities();
-  }
-
-  function oldCities() {
-    $("#listofCities").text("");
-    cityHistory.forEach((city) => {
-      $("#listofCities").prepend("<tr><td>" + city + "</td></tr>");
-    });
-  }
-  oldCities();
-
 }
 
 function realTime() {
   function updateTime() {
     var currentTime = dayjs();
-    $("#currentCity").text(
-      currentTime.format("dddd, MMMM D, YYYY hh:mm:ss a")
-      );
-    }
-    updateTime();
-    setInterval(updateTime, 1000);
+    $("#currentCity").text(currentTime.format("dddd, MMMM D, YYYY hh:mm:ss a"));
   }
-  
+  updateTime();
+  setInterval(updateTime, 1000);
+}
+
+$(document).ready(function () {
   realTime();
   searchCity();
-  
-  
+  oldCities();
 });
-
-
-
-
-
-
-// 1. Show curentTime 
-
-// 2. Create an event click for search cities
-// 3. Pull cities and show current and 5 days forscast
-// 4. Safe search in LocalStorage
-// 5. Render last search from Local Storate
-// 6. Fetch URL probably with jQuery (ajax)
-// 7. 
-
-
-// Will use forecast class to introduce 5 days cards created with jQuery (maybe)
