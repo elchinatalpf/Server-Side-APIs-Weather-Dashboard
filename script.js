@@ -3,9 +3,12 @@
 var currentTime = dayjs();
 var apiKey = 'f74896a5d35555f0459e455e5e04f3e2';
 var city = "";
-var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+var cityHistory= [];
+
 var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${apiKey}`;
-var testUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+var testUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+var anotherTEST = `https://api.openweathermap.org/data/2.5/weather?lat=57&lon=-2.15&appid=${apiKey}&units=imperial`;
+
 
 $(document).ready(function () {
 
@@ -14,21 +17,30 @@ $(document).ready(function () {
     event.preventDefault();
 
       city = $(this).siblings("#city-search");
-      var urlCurrentWeather = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}&i=true`;
-      
+      var urlCurrentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
       localStorage.setItem("city", city.val());
 
     $.ajax({
-      url: urlCurrentWeather,
+      url: anotherTEST,
       method: 'GET',
     }).then(function (response) {
       console.log(response);
       console.log(city);
     });
-    
   });
 
+  function addcityHistory (city) {
+    cityHistory.push(city);
+    oldCities();
+  }
 
+  function oldCities() {
+    $("#listofCities").text("");
+    cityHistory.forEach((city) => {
+      $("#listofCities").prepend("<tr><td>" + city + "</td></tr>");
+    });
+  }
+  oldCities();
 
 }
 
