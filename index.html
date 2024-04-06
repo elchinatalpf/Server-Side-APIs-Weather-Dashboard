@@ -14,54 +14,48 @@
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <header>
         <h1>Weather Application Dashboard</h1>
     </header>
-    <main class="container my-5 text-center">
-        <div class="row align-items-start">
-            <section class="col-12 col-md-3 col-xl-3 colOne">
-                <div class=" col-12 col-md-9 col-xl-9 colTwo sideLeft">
-                    <aside>
-                        <form class="searchCity">
-                            <input class="input-field" type="text" id="city-search">
-                            <button class="btn btn-primary" type="submit" id="search-button">Search City</button>
-                        </form>
-                        <div>
-                            <div>
-                                <table id="listofCities" class="table">
-                                    <tr></tr>
-                                </table>
-                                <button class="btn btn-warning" id="clear">Reset Search</button>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            </section>
-    
-            <section class="col">
-                <div class="showCity">
-                    <p>You can search for any city in the world.</p>
-                    <ul id="currentCity">
-                    </ul>
-                </div>
-            </section>
-    
-            <section class="col">
+    <main class="container my-5">
+        <div class="row">
+            <aside class="col-12 col-md-3">
+                <form class="searchCity">
+                    <input class="input-field" type="text" id="city-search">
+                    <button class="btn btn-primary" type="submit" id="search-button">Search City</button>
+                </form>
                 <div>
-                    <div id="weatherIcons">                        
+                    <table id="listofCities" class="table"></table>
+                    <button class="btn btn-warning" id="clear">Reset Search</button>
+                </div>
+            </aside>
+    
+            <section class="col-12 col-md-9">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="showCity">
+                            <p>You can search for any city in the world.</p>
+                            <ul id="currentCity"></ul>
+                        </div>
                     </div>
                 </div>
-            </section>
-    
-            <section class="container my-5">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-8 col-lg-9">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div id="weatherIcons"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
                         <ul id="5forecast"></ul>
                     </div>
-                </div> 
+                </div>
+
             </section>
     
         </div>
