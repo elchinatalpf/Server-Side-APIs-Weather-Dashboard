@@ -1,8 +1,31 @@
-(function () {
-  var apiKey = "f74896a5d35555f0459e455e5e04f3e2";
-  var city = "";
-  var cityHistory = [];
-  var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${apiKey}`;
+( () => {
+  const apiKey = "f74896a5d35555f0459e455e5e04f3e2";
+  let city = "";
+  let cityHistory = JSON.parse(localStorage.getItem("cityHistory")) || [];
+  let urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${apiKey}`;
+
+  // const renderCityHistory = () => {
+  //   $("listofCities").empty();
+  //   cityHistory.forEach((city) => {
+  //     $("listofCities").prepend(`<tr><td>${city}</td></tr>`);
+  //   });
+  // };
+
+  // const addcityHistory = (city) => {
+  //   if(!cityHistory.includes(city)) {
+  //     cityHistory.push(city);
+  //     localStorage.setItem("cityHistory".JSON.stringify(cityHistory));
+  //     renderCityHistory();
+  //   }
+  // };
+
+  // const updateCityDisplay = (res, city) => {
+  //   const { temp } = res.main;
+  //   const { speed: wind } = res.wind;
+  //   const { humidity } = res.main;
+  //   const currentTime = dayjs().format("MMMM D, YYYY");
+  // };
+
 
   function addcityHistory(city) {
     cityHistory.push(city);
