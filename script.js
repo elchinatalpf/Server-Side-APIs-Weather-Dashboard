@@ -5,14 +5,19 @@
   const renderCityHistory = () => {
     $("#listofCities").empty();
     cityHistory.forEach((city) => {
-      $("listofCities").prepend(`<tr><td>${city}</td></tr>`);
+      const cityElement = $("<tr>").html(`<td class="city-name">${city}</td>`);
+      cityElement.on("click", ".city-name", function() {
+        const clickedCity = $(this).text();
+        fetchWeatherData(clickedCity);
+      });
+      $("#listofCities").prepend(cityElement);
     });
   };
 
   const addcityHistory = (city) => {
     if(!cityHistory.includes(city)) {
       cityHistory.push(city);
-      localStorage.setItem("cityHistory".JSON.stringify(cityHistory));
+      localStorage.setItem("cityHistory", JSON.stringify(cityHistory));
       renderCityHistory();
     }
   };
