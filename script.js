@@ -5,11 +5,13 @@
   const renderCityHistory = () => {
     $("#listofCities").empty();
     cityHistory.forEach((city) => {
-      const cityElement = $("<tr>").html(`<td class="city-name">${city}</td>`);
-      cityElement.on("click", ".city-name", function() {
-        const clickedCity = $(this).text();
-        fetchWeatherData(clickedCity);
-      });
+      const cityElement = $("<button>")
+        .addClass("btn btn-info city-name mb-2 w-100")
+        .text(city)
+        .on("click", function() {
+
+          fetchWeatherData(city);
+        });
       $("#listofCities").prepend(cityElement);
     });
   };
@@ -39,17 +41,21 @@
   const displayFiveDayForecast = (forecastRes) => {
     $("#forecast-5").empty();
     for (let i = 0; i < 5; i++) {
-      const forecastDay = forecastRes.list[i];
+      const forecastDay = forecastRes.list[i * 8];
       const date = dayjs(forecastDay.dt_txt).format("MMMM D, YYYY");
       const temp = forecastDay.main.temp;
       const wind = forecastDay.wind.speed;
       const humidity = forecastDay.main.humidity;
 
       const forecastHTML = `
-        <li>Date: ${date}</li>
-        <li>Temperature: ${temp} °F</li>
-        <li>Wind: ${wind} MPH</li>
-        <li>Humidity ${humidity} %</li>
+        <div class="forecast-card">
+          <div class="forecast-date">${date}</div>
+          <ul class="forecast-details">
+            <li><span class="forecast-asterisc">*</span> Temperature: ${temp} °F</li>
+            <li><span class="forecast-asterisc">*</span> Wind: ${wind} MPH</li>
+            <li><span class="forecast-asterisc">*</span> Humidity ${humidity} %</li>
+          </ul>
+        </div>
       `;
       $("#forecast-5").append(forecastHTML);
     }
@@ -92,6 +98,7 @@
       cityHistory = [];
       localStorage.removeItem("cityHistory");
       renderCityHistory();
+      location.reload();
     });
   };
 
