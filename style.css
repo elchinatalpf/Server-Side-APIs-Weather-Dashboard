@@ -26,6 +26,7 @@ main {
 
 aside {
   margin-bottom: 20px;
+  /* padding-right: 20px; */
 }
 
 .searchCity {
@@ -48,10 +49,30 @@ aside {
 #listofCities {
   width: 100%;
   border-collapse: collapse;
+  border-spacing: 5px 1rem;
+  justify-content: space-between;
+}
+
+.city-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.city-name {
+  /* text-align: left; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#clear {
+  margin-top: 15px;
 }
 
 .showCity {
-  background-color: #fff;
+  background-color: #090000;
+  color: #fff;
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -72,26 +93,53 @@ aside {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-#forecast-5 li {
-  background-color: #fff;
-  padding: 20px;
+.forecast-card {
+  background-color: #040000;
+  color: #fff;
+  padding: 15px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-right: 20px;
-  margin-bottom: 20px;
-  width: calc(20% - 20px);
+  margin-top: 20px;
+  width: calc(20% - 10px);
+}
+
+.forecast-date {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.forecast-asterisc {
+  color: rgb(235, 151, 6);
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.forecast-details {
+  list-style-type: none;
+  padding: 0;
+}
+
+.forecast-details li {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {
   #forecast-5 li {
     width: calc(50% - 20px);
   }
+  aside {
+    padding-right: 0;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 480px) {
-  #forecast-5 li {
+  #forecast-5 {
     width: 100%;
   }
 }
